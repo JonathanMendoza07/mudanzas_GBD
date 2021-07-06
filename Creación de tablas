@@ -1,0 +1,145 @@
+/*==============================================================*/
+/* DBMS name:      PostgreSQL 8                                 */
+/* Created on:     20/6/2021 11:52:53                           */
+/*==============================================================*/
+
+
+/*==============================================================*/
+/* Table: CALIFICACIO_MUDANZA                                   */
+/*==============================================================*/
+create table CALIFICACIO_MUDANZA (
+   CALIFICAION_ID       SERIAL               not null,
+   CALIFICACION_NOMBRE  TEXT                 null,
+   constraint PK_CALIFICACIO_MUDANZA primary key (CALIFICAION_ID)
+);
+
+/*==============================================================*/
+/* Table: CAMION                                                */
+/*==============================================================*/
+create table CAMION (
+   CAMION_ID            SERIAL               not null,
+   CHOFER_ID            INT4                 null,
+   EMPRESA_NUM          INT4                 not null,
+   TIPO_CAMION_ID       INT4                 null,
+   FECHA_INGRESO        DATE                 null,
+   MARCA                TEXT                 null,
+   PLACA                TEXT                 null,
+   NUM_REGISTRO         INT4                 null,
+   constraint PK_CAMION primary key (CAMION_ID)
+);
+
+/*==============================================================*/
+/* Table: CHOFER                                                */
+/*==============================================================*/
+create table CHOFER (
+   CHOFER_ID            SERIAL               not null,
+   NOMBRE               TEXT                 null,
+   APELLIDO             TEXT                 null,
+   FECHA_NACIMINETO     DATE                 null,
+   ESTADO_CIVIL         TEXT                 null,
+   GENERO               TEXT                 null,
+   TELEFONO_TRABAJO     INT                 null,
+   TELEFONO_DOMICILIO   INT                 null,
+   CORREO               TEXT                 null,
+   TIPO_LICENCIA        TEXT                 null,
+   constraint PK_CHOFER primary key (CHOFER_ID)
+);
+
+/*==============================================================*/
+/* Table: CLIENTE                                               */
+/*==============================================================*/
+create table CLIENTE (
+   CLIENTE_ID           SERIAL               not null,
+   NOMBRE               TEXT                 null,
+   CEDULA               INT                 null,
+   APELLIDO             TEXT                 null,
+   FECHA_NACIMIENTO     DATE                 null,
+   ESTADO_CIVIL         TEXT                 null,
+   GENERO               TEXT                 null,
+   TELEFONO_TRABAJO     INT                 null,
+   TELEFONO_DOMICILIO   INT                 null,
+   CORREO               TEXT                 null,
+   constraint PK_CLIENTE primary key (CLIENTE_ID)
+);
+
+/*==============================================================*/
+/* Table: DETALLE_FACTURA                                       */
+/*==============================================================*/
+create table DETALLE_FACTURA (
+   DETALLE_FACTU_ID     SERIAL               not null,
+   DETALLE_FACTURA_ID   INT4                 null,
+   DET_MUDANZA          TEXT                 null,
+   DET_CAMION_AL        int                 null,
+   DET_PRECIO           INT                 null,
+   constraint PK_DETALLE_FACTURA primary key (DETALLE_FACTU_ID)
+);
+
+/*==============================================================*/
+/* Table: DIRECCION                                             */
+/*==============================================================*/
+create table DIRECCION (
+   DIRECCION_ID         SERIAL               not null,
+   CLIENTE_ID           INT4                 not null,
+   DIRECCION_ALIAS      TEXT                 null,
+   DIRECCION_DESCRIPCION TEXT                 null,
+   DIRECCION_CALLE_     TEXT                 null,
+   DRECCION_CODIGOPOSTAL INT4                 null,
+   DIRECCION_CIUDAD     TEXT                 null,
+   constraint PK_DIRECCION primary key (DIRECCION_ID)
+);
+
+/*==============================================================*/
+/* Table: EMPRESA                                               */
+/*==============================================================*/
+create table EMPRESA (
+   EMPRESA_NUM          SERIAL               not null,
+   MUDANZA              TEXT                 null,
+   constraint PK_EMPRESA primary key (EMPRESA_NUM)
+);
+
+
+/*==============================================================*/
+/* Table: FACTURA                                               */
+/*==============================================================*/
+create table FACTURA (
+   FACTURA_ID           SERIAL               not null,
+   CLIENTE_ID           INT4                 not null,
+   DETALLE_FACTU_ID     INT4                 not null,
+   DETALLE_MUDANZA_ID   INT2                 null,
+   FACTURA_FECHA        DATE                 null,
+   constraint PK_FACTURA primary key (FACTURA_ID)
+);
+
+/*==============================================================*/
+/* Table: MUDANZAS                                              */
+/*==============================================================*/
+create table MUDANZAS (
+   MUDANZA_ID           SERIAL               not null,
+   CHOFER_ID            INT                 null,
+   CLIENTE_ID           INT                 null,
+   TIPO_MUDANZA_ID      INT                 null,
+   CALIFICAION_ID       INT                 not null,
+   TIPO_MUDANZA         INT                null,
+   MUDANZA_CHOFER_ID    INT                 null,
+   FECHA_REGISTRO       DATE                 null,
+   FECHA_ENTREGA        DATE                 null,
+   constraint PK_MUDANZAS primary key (MUDANZA_ID)
+);
+
+/*==============================================================*/
+/* Table: TIPO_CAMION                                           */
+/*==============================================================*/
+create table TIPO_CAMION (
+   TIPO_CAMION_ID       SERIAL               not null,
+   CAMION_descripcion        TEXT                 null,
+   constraint PK_TIPO_CAMION primary key (TIPO_CAMION_ID)
+);
+
+/*==============================================================*/
+/* Table: TIPO_MUDANZA                                          */
+/*==============================================================*/
+create table TIPO_MUDANZA (
+   TIPO_MUDANZA_ID      SERIAL               not null,
+   TIPO_MUDANZA_NOMBRE  TEXT                 not null,
+   constraint PK_TIPO_MUDANZA primary key (TIPO_MUDANZA_ID)
+);
