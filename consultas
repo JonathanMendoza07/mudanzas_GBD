@@ -1,0 +1,47 @@
+/*Cuanto se le factura a cada camión alquilado por mes*/
+select
+factura.factura_id,
+marca,
+camion_descripcion,
+extract (month from factura.factura_fecha) as mes,
+detalle_factura.det_camion_al as valor_total
+from camion
+inner join factura on factura.cliente_id = camion.camion_id
+inner join tipo_camion on tipo_camion.tipo_camion_id = camion.tipo_camion_id
+inner join detalle_factura on detalle_factura.detalle_factu_id = camion.camion_id
+where camion_descripcion='Alquilado'
+group by camion_descripcion, mes,factura_id,marca,valor_total
+ 
+ /*calificaciones de mudanza para cada chofer por año*/
+select
+nombre as nombre_chofer,
+calificacion_nombre as calificacion,
+extract (year from fecha_registro) as año
+from mudanzas
+inner join chofer on mudanzas.chofer_id = chofer.chofer_id
+inner join calificacio_mudanza on mudanzas.calificaion_id = calificacio_mudanza.calificaion_id
+order by año asc;
+
+/*Numero total de facturas emitidas para cada cliente y valor total por año*/
+select 
+nombre as cliente,
+count (factura.factura_id) as facturas,
+sum(detalle_factura.det_precio) as valor_total,
+extract (year from factura.factura_fecha) as año
+from cliente
+inner join factura on factura.cliente_id = cliente.cliente_id
+inner join detalle_factura on detalle_factura.detalle_factu_id = cliente.cliente_id
+group by nombre, año
+order by año;
+
+ /*Mudanzas realizadas por vehiculos alquilados y propios por año*/
+select
+camion_descripcion,
+count(mudanzas.mudanza_id) as mudanzas_realizadas,
+extract(year from mudanzas.fecha_registro) as año
+from chofer
+inner join mudanzas on chofer.chofer_id=mudanzas.chofer_id
+inner join camion on chofer.chofer_id=camion.chofer_id
+inner join tipo_camion on tipo_camion.tipo_Camion_id = camion.tipo_camion_id
+group by camion_descripcion, año
+order by año asc;
