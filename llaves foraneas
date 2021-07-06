@@ -1,0 +1,50 @@
+
+alter table CAMION
+   add constraint FK_CAMION_CAMION_TI_TIPO_CAM foreign key (TIPO_CAMION_ID)
+      references TIPO_CAMION (TIPO_CAMION_ID)
+      on delete restrict on update restrict;
+
+alter table CAMION
+   add constraint FK_CAMION_CHOFER_CA_CHOFER foreign key (CHOFER_ID)
+      references CHOFER (CHOFER_ID)
+      on delete restrict on update restrict;
+
+alter table CAMION
+   add constraint FK_CAMION_EMPRESA_C_EMPRESA foreign key (EMPRESA_NUM)
+      references EMPRESA (EMPRESA_NUM)
+      on delete restrict on update restrict;
+
+alter table DIRECCION
+   add constraint FK_DIRECCIO_CLIENTE_D_CLIENTE foreign key (CLIENTE_ID)
+      references CLIENTE (CLIENTE_ID)
+      on delete restrict on update restrict;
+
+alter table FACTURA
+   add constraint FK_FACTURA_CLIENTE_F_CLIENTE foreign key (CLIENTE_ID)
+      references CLIENTE (CLIENTE_ID)
+      on delete restrict on update restrict;
+
+alter table FACTURA
+   add constraint FK_FACTURA_DETALLEFA_DETALLE_ foreign key (DETALLE_FACTU_ID)
+      references DETALLE_FACTURA (DETALLE_FACTU_ID)
+      on delete restrict on update restrict;
+
+alter table MUDANZAS
+   add constraint FK_MUDANZAS_CALIFICAC_CALIFICA foreign key (CALIFICAION_ID)
+      references CALIFICACIO_MUDANZA (CALIFICAION_ID)
+      on delete restrict on update restrict;
+
+alter table MUDANZAS
+   add constraint FK_MUDANZAS_CHOFER_MU_CHOFER foreign key (CHOFER_ID)
+      references CHOFER (CHOFER_ID)
+      on delete restrict on update restrict;
+
+alter table MUDANZAS
+   add constraint FK_MUDANZAS_CLIENTE_M_CLIENTE foreign key (CLIENTE_ID)
+      references CLIENTE (CLIENTE_ID)
+      on delete restrict on update restrict;
+
+alter table MUDANZAS
+   add constraint FK_MUDANZAS_TIPOMUDAN_TIPO_MUD foreign key (TIPO_MUDANZA_ID)
+      references TIPO_MUDANZA (TIPO_MUDANZA_ID)
+      on delete restrict on update restrict;
